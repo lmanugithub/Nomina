@@ -1,0 +1,22 @@
+└── datetime
+    └── WorkingTime (fechas)
+        └── DatosTrabajador (datostrabajador)
+            ├── CalculoFiniquito (calculofiniquito)
+            └── SueldoDiarioIntegrado (sueldodiariofiniq)
+                └── CalculoSeparacion (calculoseparacion)
+
+└── DataImss (dataimss)
+    ├── CalculoIMSSObrero (imss)
+    │   ├── TaxRetention (taxretention)
+    │   └── CoutasImss (coutasimss)
+    ├── CalculoIMSSPatron (imss)
+    │   └── CoutasImss (coutasimss)
+    └── DatosTrabajador (datostrabajador)
+
+└── Tablas (tablas)
+    └── ISR (isr)
+        ├── CalculoFiniquito (calculofiniquito)
+        │   └── Finiquito (finiquito)
+        ├── CalculoSeparacion (calculoseparacion)
+        │   └── Finiquito (finiquito)
+        └── TaxRetention (taxretention)

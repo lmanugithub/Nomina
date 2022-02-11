@@ -97,6 +97,12 @@ class Proyectos():
         # Costo del Proyecto
         dataframe['Costo_proyecto'] = dataframe.loc[:, [
             'Carga_laboral_proyectado', 'Sueldo_proyectado']].sum(axis=1)
+        
+        # Costo del nomina mensual fija
+        suma_nomina_mensual = dataframe.loc[:, [
+            'Sueldo_proyectado', 'Aguinaldo', 'Vacaciones', 'Prima_vac']].sum(axis=1)
+        
+        dataframe['Costo_nomina_mensual_fija'] = suma_nomina_mensual.apply(lambda x: x/meses)
 
         # Recibo nomina normal
         dataframe['ISR mensual'] = dataframe['suma'].apply(ISR.function_isr)
@@ -106,10 +112,10 @@ class Proyectos():
             'ISR mensual', 'IMSS mensual']].sum(axis=1)
         dataframe['sueldo neto'] = dataframe['suma'].sub(retenciones)
 
-        resta = dataframe['sueldo neto'].apply(lambda x: x - 6000)
-        resultado = dataframe['suma'].apply(lambda x: x * 0.32)
-        resultado_1 = resta - resultado
-        dataframe['ahorro'] = resultado_1
+        # resta = dataframe['sueldo neto'].apply(lambda x: x - 6000)
+        # resultado = dataframe['suma'].apply(lambda x: x * 0.32)
+        # resultado_1 = resta - resultado
+        # dataframe['ahorro'] = resultado_1
 
         self.preprocessed_data = dataframe.copy()
 

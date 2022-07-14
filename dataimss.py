@@ -1,5 +1,5 @@
 class DataImss():
-    _uma = 89.62  # apartir de febrero 2021
+    _uma = 96.22 # <- apartir de 1 febrero 2022. 89.62 - 2021
     dias = 30.4
     _prima_de_riesgo = 0.54355
 

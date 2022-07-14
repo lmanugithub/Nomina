@@ -12,8 +12,18 @@ from vacaciones import Vacaciones
 
 
 class Proyectos():
+    def __init__(self) -> None:
+        self._year_days = 365
+        self._prima_vacacion = 0.25
+        self._fecha_base = '2021/12/31'
+        self._avg_day_year = 30.4166
+        self._half_avg_day_year = round(self._avg_day_year/2,4)
+        self._year_month = 12
 
     def dias_proyectados(self, num):
+        '''
+        num: (str) Numero de años
+        '''
         calculo = Vacaciones()
         if num < 0:
             return calculo.dias_vacacion(str(1))
@@ -23,8 +33,8 @@ class Proyectos():
             return calculo.dias_vacacion(str(num+1))
 
     def factor_sdi(self, vacation):
-        propossional_vacation = vacation * 0.25
-        return round((365 + 15 + propossional_vacation)/365, 4)
+        propossional_vacation = vacation * self._prima_vacacion
+        return round((self._year_days + 15 + propossional_vacation)/self._year_days, 4)
 
     def clean_and_load_data(self, data_file, num_meses:int = 1):
         '''
@@ -43,16 +53,16 @@ class Proyectos():
         dataframe['date'] = pd.to_datetime(dataframe['date'])
 
         # Establecemos la fecha base para los calculos
-        fecha_base = pd.to_datetime('2021/12/31', format='%Y/%m/%d')
+        fecha_base = pd.to_datetime(self._fecha_base, format='%Y/%m/%d')
 
         dataframe['suma'] = dataframe.sum(axis=1)
 
         # Todo este codigo es para calcular el SDI en base a la fecha de ingreso
         years_working = ((dataframe['date'].apply(
-            lambda x: fecha_base-x)).dt.days//365)
+            lambda x: fecha_base-x)).dt.days//self._year_days)
         dias_vacaciones = years_working.apply(self.dias_proyectados)
         factor_to_apply = dias_vacaciones.apply(self.factor_sdi)
-        sueldo_diario = dataframe['suma'].apply(lambda x: x/30.4)
+        sueldo_diario = dataframe['suma'].apply(lambda x: x/self._avg_day_year)
         dataframe['salarioDiario'] = sueldo_diario.multiply(factor_to_apply)
 
         # Calculo carga laboral mensual normal
@@ -63,7 +73,7 @@ class Proyectos():
         dataframe['Cuotas_RCV'] = dataframe['salarioDiario'].apply(
             CuotasImss.function_rcv_patronal)
         dataframe['Infonavit'] = dataframe['salarioDiario'].apply(
-            lambda x: x*0.05*30.4)
+            lambda x: x*0.05*self._avg_day_year)
         dataframe['Carga_laboral'] = dataframe.loc[:, ['3%_nomina', 'Cuota_Imss',
                                                        'Cuotas_RCV', 'Infonavit']].sum(axis=1)
         dataframe['Carga_laboral_total'] = dataframe.loc[:,
@@ -74,12 +84,12 @@ class Proyectos():
         dataframe['Sueldo_proyectado'] = dataframe['suma'].apply(
             lambda x: x * meses)
         dataframe['Aguinaldo'] = dataframe['suma'].apply(
-            lambda x: (((x/30.4)*15.2)/12)*meses)
+            lambda x: (((x/self._avg_day_year)*self._half_avg_day_year)/12)*meses)
         resultado_a = dias_vacaciones.apply(lambda x: x*meses)
         resultado_b = dataframe['suma'].multiply(resultado_a)
-        dataframe['Vacaciones'] = resultado_b.apply(lambda x: x/(30.4*12))
+        dataframe['Vacaciones'] = resultado_b.apply(lambda x: x/(self._avg_day_year*12))
         dataframe['Prima_vac'] = dataframe['Vacaciones'].apply(
-            lambda x: (x*0.25)*meses)
+            lambda x: (x*self._prima_vacacion)*meses)
         # Base para calculo de 3% sobre nomina proyectado
         base_para_3_preyectado = dataframe.loc[:, ['Sueldo_proyectado', 'Aguinaldo',
                                                    'Vacaciones', 'Prima_vac']].sum(axis=1)
@@ -130,7 +140,7 @@ class Proyectos():
 # def duracion_proyecto(inicio, fin) -> int:
 #     difference = fin - inicio
 #     dias = str(difference).split()
-#     return int(dias[0])//30.4
+#     return int(dias[0])//self._avg_day_year
 
 
 # def mes_even(inicio) -> bool:

@@ -13,6 +13,7 @@ from vacaciones import Vacaciones
 
 class Proyectos():
 
+
     def dias_proyectados(self, num):
         calculo = Vacaciones()
         if num < 0:
@@ -22,9 +23,28 @@ class Proyectos():
         else:
             return calculo.dias_vacacion(str(num+1))
 
+
     def factor_sdi(self, vacation):
         propossional_vacation = vacation * 0.25
         return round((365 + 15 + propossional_vacation)/365, 4)
+
+
+    def triangulacion(self, valor_1, valor_2, valor_agg):
+        '''
+        valor: valor de la base segunda quincena que es la suma de dos quincenas + fondo
+        valor_agg: fondo fijo
+        '''
+        objetivo = valor_1 - ISR.function_isr(valor_1*2)/2
+        cuenta = 0
+        isr = ISR.function_isr(valor_2)/2 
+        dato = (valor_2/2) - isr - valor_agg
+
+        while dato < objetivo:
+            cuenta += 1
+            isr = ISR.function_isr(valor_2 + cuenta)/2 
+            dato = ((valor_2/2)+cuenta) - isr - valor_agg
+        return cuenta
+
 
     def clean_and_load_data(self, data_file):
         '''
@@ -56,9 +76,9 @@ class Proyectos():
         dataframe['salarioDiario'] = sueldo_diario.multiply(factor_to_apply)
 
         # Calculo carga laboral mensual normal
-        
+
         # Proyeccion de la carga laboral por meses
- 
+
         # Base para calculo de 3% sobre nomina proyectado
 
         # Carga laboral proyectado
@@ -66,20 +86,51 @@ class Proyectos():
         # Costo del Proyecto
 
         # Recibo nomina normal
-        dataframe['ISR mensual'] = dataframe['suma'].apply(ISR.function_isr)
-        dataframe['IMSS mensual'] = dataframe['salarioDiario'].apply(
-            CuotasImss.function_imss_obrero)
+        dataframe['ISR Q1'] = ((dataframe['a'].apply(lambda x: x*2)
+                                ).apply(ISR.function_isr)).apply(lambda x: x/2)
+        dataframe['IMSS Q1'] = (dataframe['salarioDiario'].apply(
+            CuotasImss.function_imss_obrero)).apply(lambda x: x/2)
         retenciones = dataframe.loc[:, [
-            'ISR mensual', 'IMSS mensual']].sum(axis=1)
-        dataframe['sueldo neto'] = dataframe['suma'].sub(retenciones)
+            'ISR Q1', 'IMSS Q1']].sum(axis=1)
+        dataframe['sueldo Q1'] = dataframe['a'].sub(retenciones)
 
-        resta = dataframe['sueldo neto'].apply(lambda x: x - 6000)
-        resultado = dataframe['suma'].apply(lambda x: x * 0.32)
-        resultado_1 = resta - resultado
-        dataframe['ahorro'] = resultado_1
+        isr_q1 = ((dataframe['a'].apply(lambda x: x*2)
+                   ).apply(ISR.function_isr)).apply(lambda x: x/2)
+        isr_q2 = (dataframe['suma'].apply(
+            ISR.function_isr)).apply(lambda x: x/2)
+
+        dataframe['ISR Q2'] = (dataframe['suma'].apply(
+            ISR.function_isr)).apply(lambda x: x/2)
+        dataframe['IMSS Q2'] = (dataframe['salarioDiario'].apply(
+            CuotasImss.function_imss_obrero)).apply(lambda x: x/2)
+        retenciones = dataframe.loc[:, [
+            'ISR Q2', 'IMSS Q2']].sum(axis=1)
+        dataframe['sueldo Q2'] = (dataframe['suma'].apply(
+            lambda x: x/2)).sub(retenciones).sub(dataframe['f'])
+
+        dataframe['Objetivo'] = dataframe['a'].sub(isr_q1)
+
+        dataframe['gratificación'] = dataframe.apply(
+            lambda x: self.triangulacion(x['a'], x['suma'], x['f']), axis=1)
+
+        base_q3 = dataframe.loc[:,['suma','gratificación']].sum(axis=1)
+
+        isr_q3 = (base_q3.apply(ISR.function_isr)).apply(lambda x: x/2)
+
+        dataframe['ISR Q3'] = (base_q3.apply(ISR.function_isr)).apply(lambda x: x/2)
+        dataframe['IMSS Q3'] = (dataframe['salarioDiario'].apply(
+            CuotasImss.function_imss_obrero)).apply(lambda x: x/2)
+        retenciones = dataframe.loc[:, [
+            'ISR Q3', 'IMSS Q3']].sum(axis=1)
+        dataframe['sueldo Q3'] = (dataframe['suma'].apply(
+            lambda x: x/2)).sub(retenciones).sub(dataframe['f'])
+
+        # resta = dataframe['sueldo neto'].apply(lambda x: x - 6000)
+        # resultado = dataframe['suma'].apply(lambda x: x * 0.32)
+        # resultado_1 = resta - resultado
+        # dataframe['ahorro'] = resultado_1
 
         self.preprocessed_data = dataframe.copy()
 
     def putout_data(self):
         return self.preprocessed_data
-

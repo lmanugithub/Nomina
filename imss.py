@@ -148,3 +148,17 @@ class CalculoIMSSPatron(DataImss):
         calculo = CalculoIMSSPatron()
         calculo.set_sdi(x)
         return calculo.total_afore()
+    
+    @classmethod
+    def function_imss_patronal(cls, x):
+        '''
+        Función que suma las funciones anteriores patronales
+        '''
+        calculo = CalculoIMSSPatron()
+        calculo.set_sdi(x)
+        subtotal = (
+            calculo.total_imss() +
+            calculo.infonavit() +
+            calculo.total_afore() 
+        )
+        return subtotal

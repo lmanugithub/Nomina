@@ -20,6 +20,11 @@ class Vacaciones():
     
     def factor_integration(self, ano: str) -> float:
         return self.vacaciones[str(ano)][1]
+    
+    @classmethod
+    def fac_int(cls, ano: str) -> float:
+        factor = Vacaciones()
+        return factor.factor_integration(ano)
 
 if __name__=='__main__':
     prueba = Vacaciones()

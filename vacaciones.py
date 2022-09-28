@@ -26,6 +26,12 @@ class Vacaciones():
         factor = Vacaciones()
         return factor.factor_integration(ano)
 
+    @classmethod
+    def dia_vac(cls, ano: str) -> float:
+        factor = Vacaciones()
+        return factor.dias_vacacion(ano)
+
+
 if __name__=='__main__':
     prueba = Vacaciones()
     anos = input('Digite el numero de años: ')

@@ -8,7 +8,7 @@ class DatosTrabajador(WorkingTime,DataImss):
         WorkingTime.__init__(self)
         DataImss.__init__(self)
         WorkingTime.__init__(self)
-        self.salario_diario_minimo = 141.70
+        self.salario_diario_minimo = 172.87
         self.prima_vacacional = 0.25
         self.dias_agunaldo = 15.2
 

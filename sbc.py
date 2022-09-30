@@ -3,14 +3,9 @@
 # In[1]:
 
 # Importación de librerias
-from datetime import datetime
-from datetime import timedelta
 import pandas as pd
-from isr import ISR
 from datostrabajador import DatosTrabajador
 from vacaciones import Vacaciones
-from fechas import WorkingTime
-from dataimss import DataImss
 
 
 class SBC(Vacaciones, DatosTrabajador):
@@ -64,7 +59,7 @@ class SBC(Vacaciones, DatosTrabajador):
     # Metodo calcula lo proporcional del la prima vacacional para el sbc
     def prima_vac_sbc(self):
         sd = self.get_sueldo_mensual() / 30
-        return round((sd * self.vacaciones_dias() * 0.25) / 365, 2)
+        return round((sd * self.vacaciones_dias() * self.prima_vacacional) / 365, 2)
 
     def salario_base_cotizacion(self):
         sd = self.get_sueldo_mensual() / 30
@@ -72,7 +67,7 @@ class SBC(Vacaciones, DatosTrabajador):
 
     @classmethod
     def funcion_sbc(cls, sueldo, vales, a, b):
-        nomina = SalarioBaseCotizacion()
+        nomina = SBC()
         nomina.set_fecha_ingreso(a)
         nomina.set_fecha_base(b)
         nomina.set_sueldo_mensual(sueldo)
@@ -93,7 +88,7 @@ class SBC(Vacaciones, DatosTrabajador):
 
     @classmethod
     def funcion_aguinaldo(cls, sueldo, a, b):
-        nomina = SalarioBaseCotizacion()
+        nomina = SBC()
         nomina.set_fecha_ingreso(a)
         nomina.set_fecha_base(b)
         nomina.set_sueldo_mensual(sueldo)
@@ -106,7 +101,7 @@ class SBC(Vacaciones, DatosTrabajador):
 
     @classmethod
     def funcion_pv(cls, sueldo, date_ingreso, date_base):
-        nomina = SalarioBaseCotizacion()
+        nomina = SBC()
         nomina.set_fecha_ingreso(date_ingreso)
         nomina.set_fecha_base(date_base)
         nomina.set_sueldo_mensual(sueldo)
@@ -118,7 +113,7 @@ class SBC(Vacaciones, DatosTrabajador):
 
     @classmethod
     def funcion_sdi(cls, sueldo, a, b):
-        nomina = SalarioBaseCotizacion()
+        nomina = SBC()
         nomina.set_sueldo_mensual(sueldo)
         nomina.set_fecha_ingreso(a)
         nomina.set_fecha_base(b)

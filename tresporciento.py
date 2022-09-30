@@ -1,3 +1,10 @@
+# coding: utf-8
+
+# In[1]:
+
+__author__ = 'lguerrero'
+
+
 class TresPorciento:
 
     def __init__(self):

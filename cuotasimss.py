@@ -1,3 +1,10 @@
+# coding: utf-8
+
+# In[1]:
+
+__author__ = 'lguerrero'
+
+# Importación de librerias
 from typing import Counter
 from imss import CalculoIMSSObrero, CalculoIMSSPatron
 

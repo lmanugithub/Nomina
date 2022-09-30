@@ -24,7 +24,6 @@ class Letra():
         self.moneda = {'0': ['pesos', '/100 MXN'],
                        '1': ['peso', '/100 MXN']}
 
-
     def units(self, index):
         return self.unidades[index]
 
@@ -142,7 +141,7 @@ class Letra():
                     return(f"{self.letra_tens(m//1000)} {mil} {mil_}")
             else:
                 return(f"{self.letra_tens(m//1000)} {mil} {self.letra_hundreds(m % 1000)} {mil_} {self.letra_hundreds(th)} {mil} {self.letra_hundreds(h)}")
-        
+
         elif m >= 100000 and m < 1000000:
             if th == 0 and h == 0:
                 if m // 1000 == 100:

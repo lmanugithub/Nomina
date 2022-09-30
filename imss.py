@@ -1,3 +1,10 @@
+# coding: utf-8
+
+# In[1]:
+
+__author__ = 'lguerrero'
+
+# Importación de librerias
 from dataimss import DataImss
 
 
@@ -119,7 +126,7 @@ class CalculoIMSSPatron(DataImss):
     def infonavit(self):
         return round((self.salario_diario() * self.dias * 0.05), 2)
 
-    def total_imss(self):
+    def imss(self):
         return round((self.riesgo_de_trabajo() +
                      self.cuota_enfermedad_maternidad() +
                      self.cuota_invalidez() +
@@ -130,12 +137,20 @@ class CalculoIMSSPatron(DataImss):
         return round((self.retiro() +
                       self.cuota_cesantia_vejez()), 2)
 
+    def total_imss(self):
+        subtotal = (
+            self.imss() +
+            self.infonavit() +
+            self.total_afore()
+        )
+        return round(subtotal, 2)
+
     # Funciones provisionales para posible manejo facil de pandas
     @classmethod
     def function_imss_patron(cls, x):
         calculo = CalculoIMSSPatron()
         calculo.set_sdi(x)
-        return calculo.total_imss()
+        return calculo.imss()
 
     @classmethod
     def function_infonavit(cls, x):
@@ -148,7 +163,7 @@ class CalculoIMSSPatron(DataImss):
         calculo = CalculoIMSSPatron()
         calculo.set_sdi(x)
         return calculo.total_afore()
-    
+
     @classmethod
     def function_imss_patronal(cls, x):
         '''
@@ -157,8 +172,8 @@ class CalculoIMSSPatron(DataImss):
         calculo = CalculoIMSSPatron()
         calculo.set_sdi(x)
         subtotal = (
-            calculo.total_imss() +
+            calculo.imss() +
             calculo.infonavit() +
-            calculo.total_afore() 
+            calculo.total_afore()
         )
         return subtotal

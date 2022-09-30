@@ -2,6 +2,8 @@
 
 # In[1]:
 
+__author__ = 'lguerrero'
+
 # Importación de librerias
 import pandas as pd
 from datostrabajador import DatosTrabajador
@@ -18,8 +20,8 @@ class SBC(Vacaciones, DatosTrabajador):
     def antiguedad(self):
         years = (self.fecha_base - self.fecha_ingreso).days // 365
         return years
-      
-    # Antigüedad que se usara para el sbc ya que los que no alcanza el año se pone un año de antigüedad 
+
+    # Antigüedad que se usara para el sbc ya que los que no alcanza el año se pone un año de antigüedad
     def antiguedad_sbc(self):
         year = (self.fecha_base - self.fecha_ingreso).days // 365
         if year > 0:
@@ -32,8 +34,8 @@ class SBC(Vacaciones, DatosTrabajador):
         years = str(years)
         return self.dias_vacacion(years)
 
+    # Metodo creado para la prima vacacional
 
-    # Metodo creado para la prima vacacional 
     def vacaciones_dias_r(self):
         years = self.antiguedad()
         if years > 0:
@@ -41,11 +43,11 @@ class SBC(Vacaciones, DatosTrabajador):
             return self.dias_vacacion(years)
         else:
             return 0
-    
+
     # Los Vales computan para el sbc pero hasta un tope el cual calcula este metodo
     def tope_vales(self):
         tope_diario = self._uma * 0.40
-        tope_mensual = tope_diario * self.dias 
+        tope_mensual = tope_diario * self.dias
         if self.get_vales_despensa() > tope_mensual:
             return (self.get_vales_despensa() - tope_mensual) / self.dias
         else:
@@ -80,11 +82,11 @@ class SBC(Vacaciones, DatosTrabajador):
         if dias > 365:
             return 1
         else:
-            return round((dias/365),2)
+            return round((dias/365), 2)
 
     def aguinaldo(self):
         sd = self.get_sueldo_mensual() / 30 * 15
-        return round((sd * self.proporcion_aguinaldo() ), 2)
+        return round((sd * self.proporcion_aguinaldo()), 2)
 
     @classmethod
     def funcion_aguinaldo(cls, sueldo, a, b):
@@ -93,7 +95,6 @@ class SBC(Vacaciones, DatosTrabajador):
         nomina.set_fecha_base(b)
         nomina.set_sueldo_mensual(sueldo)
         return nomina.aguinaldo()
-
 
     def prima_vac(self):
         sd = self.get_sueldo_mensual() / 30

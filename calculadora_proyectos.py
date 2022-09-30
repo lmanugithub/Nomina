@@ -1,7 +1,8 @@
-
 # coding: utf-8
 
 # In[1]:
+
+__author__ = 'lguerrero'
 
 # Importación de librerias
 from datetime import datetime

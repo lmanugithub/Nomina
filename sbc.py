@@ -119,3 +119,16 @@ class SBC(Vacaciones, DatosTrabajador):
         nomina.set_fecha_ingreso(a)
         nomina.set_fecha_base(b)
         return nomina.sdi()
+
+    def get_year(self):
+        year = self.get_fecha_base().year
+        return str(year)
+
+    def index(self) -> int:
+        i = 0
+        while self.superior_subsidio[i] <= self._sueldo_base:
+            i += 0.1
+        return i
+
+
+

@@ -122,7 +122,7 @@ class SBC(Vacaciones, DatosTrabajador):
 
     def get_year(self):
         year = self.get_fecha_base().year
-        return str(year)
+        return year
 
     def index(self) -> int:
         i = 0

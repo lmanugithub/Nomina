@@ -141,8 +141,12 @@ class CalculoIMSSPatron(DataImss, WorkingTime, Tablas_Imss):
         return indice
 
     def method_ceav(self):
-        year = str(self.get_year())
-        return self.ceav[year][self.index()]
+        if self.get_year() < 2030:
+            year = str(self.get_year())
+            return self.ceav[year][self.index()]
+        else:
+            year = '2030'
+            return self.ceav[year][self.index()]
 
 
     def cuota_cesantia_vejez(self):

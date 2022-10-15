@@ -4,10 +4,9 @@
 
 __author__ = 'lguerrero'
 
+from dataimss import DataImss
 # Importación de librerias
 from fechas import WorkingTime
-from dataimss import DataImss
-
 
 
 class DatosTrabajador(WorkingTime,DataImss):

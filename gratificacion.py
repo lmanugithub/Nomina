@@ -1,11 +1,10 @@
-from isr import ISR
-
-
 # coding: utf-8
 
 # In[1]:
 
 __author__ = 'lguerrero'
+
+from isr import ISR
 
 
 class Gratificacion():

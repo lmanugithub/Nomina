@@ -4,9 +4,9 @@
 
 __author__ = 'lguerrero'
 
+from dataimss import DataImss
 # Importación de librerias
 from tablas import Tablas, Tablas_Anual
-from dataimss import DataImss
 
 
 class ISR(Tablas):

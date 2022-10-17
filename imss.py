@@ -9,6 +9,7 @@ from dataimss import DataImss
 from fechas import WorkingTime
 from tablas_imss import Tablas_Imss
 
+
 class CalculoIMSSObrero(DataImss):
     def __init__(self):
         super().__init__()

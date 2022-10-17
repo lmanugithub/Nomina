@@ -6,6 +6,7 @@ __author__ = 'lguerrero'
 
 # Importación de librerias
 import pandas as pd
+
 from datostrabajador import DatosTrabajador
 from vacaciones import Vacaciones
 

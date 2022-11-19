@@ -81,12 +81,12 @@ class SBC(Vacaciones, DatosTrabajador):
     def proporcion_aguinaldo(self):
         dias = (self.fecha_base - self.fecha_ingreso).days
         if dias > 365:
-            return 1
+            return (15/365) * 365
         else:
-            return round((dias/365), 2)
+            return (15/365) * (dias + 1) 
 
     def aguinaldo(self):
-        sd = self.get_sueldo_mensual() / 30 * 15
+        sd = self.get_sueldo_mensual() / 30 
         return round((sd * self.proporcion_aguinaldo()), 2)
 
     @classmethod

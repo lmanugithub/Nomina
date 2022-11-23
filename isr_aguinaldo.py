@@ -58,7 +58,7 @@ class Reglamento(ISR, Aguinaldo):
         Art. 174 Fracción I. La remuneración (Aguinaldo GRAVADO) de que se trate 
         se dividirá entre 365 y el resultado se multiplicará por 30.4;
         '''
-        return round(self.aguinaldo_grabado() / 365, 2)
+        return round((self.aguinaldo_grabado() / 365) * 30.4, 2)
 
     def fracc_ii(self) -> float:
         '''

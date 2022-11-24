@@ -36,7 +36,6 @@ class SBC(Vacaciones, DatosTrabajador):
         return self.dias_vacacion(years)
 
     # Metodo creado para la prima vacacional
-
     def vacaciones_dias_r(self):
         years = self.antiguedad()
         if years > 0:

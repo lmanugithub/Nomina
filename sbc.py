@@ -44,12 +44,16 @@ class SBC(Vacaciones, DatosTrabajador):
         else:
             return 0
 
-    # Los Vales computan para el sbc pero hasta un tope el cual calcula este metodo
+    # Los Vales computan para el sbc pero hasta un tope el cual calcula este metodo 
+    # Se va a redondear los calculos del tope de vales de despensa, ya que así se hace en ExM
     def tope_vales(self):
+        '''
+        Se va a redondear los calculos del tope de vales de despensa, ya que así se hace en ExM
+        '''
         tope_diario = self._uma * 0.40
         tope_mensual = tope_diario * self.dias
         if self.get_vales_despensa() > tope_mensual:
-            return (self.get_vales_despensa() - tope_mensual) / self.dias
+            return round((self.get_vales_despensa() - tope_mensual) / self.dias,0)
         else:
             return 0
 

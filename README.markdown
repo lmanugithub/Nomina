@@ -1,4 +1,4 @@
-# Proyect
+# Payroll calculations
 
-this is a payroll project apply only for mexican to mexicans
+The purpose of this project was to facilitate payroll calculations to get a budget quickly
 

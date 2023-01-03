@@ -132,9 +132,10 @@ class ISR_Anual(Tablas_Anual,DataImss):
         calculo.set_sueldo_base_anual(x)
         return calculo.calculo_impuesto_anual()
 
-# if __name__=='__main__':
-#     calculo = ISR_Anual()
-#     calculo.set_sueldo_base_anual(35000)
+if __name__=='__main__':
+    sueldo = float(input('Hola por favor digite la base del impuesto: '))
+    calculo = ISR()
+    calculo.set_sueldo_base(sueldo)
 
-#     print(calculo.calculo_impuesto_anual())
-    # print(calculo.total_imss())
+    print(calculo.impuesto_a_retener())
+

@@ -65,7 +65,11 @@ class SBC(Vacaciones, DatosTrabajador):
 
     def salario_base_cotizacion(self):
         sd = self.get_sueldo_mensual() / 30
-        return self.tope_vales() + self.aguinaldo_sbc() + self.prima_vac_sbc() + sd
+        sbc = self.tope_vales() + self.aguinaldo_sbc() + self.prima_vac_sbc() + sd
+        if (self._uma * 25) > sbc:
+            return sbc
+        else:
+            return self._uma * 25
 
     @classmethod
     def funcion_sbc(cls, sueldo, vales, a, b):
@@ -119,4 +123,12 @@ class SBC(Vacaciones, DatosTrabajador):
         nomina.set_fecha_ingreso(a)
         nomina.set_fecha_base(b)
         return nomina.sdi()
+
+    # Funcion vacaciones
+    @classmethod
+    def funcion_dias_vacaciones(cls, date_ingreso, date_base):
+        nomina = SBC()
+        nomina.set_fecha_ingreso(date_ingreso)
+        nomina.set_fecha_base(date_base)
+        return nomina.vacaciones_dias_r()
 

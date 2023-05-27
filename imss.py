@@ -135,19 +135,20 @@ class CalculoIMSSPatron(DataImss, WorkingTime, Tablas_Imss):
         year = self.get_fecha_base().year
         return year
 
-    def index(self) -> int:
+    def ind(self) -> int:
         lista = [1.01, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.01, 35]
         elements = [i for i in lista if i <= self.veces_uma()]
-        indice = lista.index(elements[-1])
+        # indice = lista.index(elements[-1])
+        indice = len(elements)-1
         return indice
 
     def method_ceav(self):
         if self.get_year() < 2030:
             year = str(self.get_year())
-            return self.ceav[year][self.index()]
+            return self.ceav[year][self.ind()]
         else:
             year = '2030'
-            return self.ceav[year][self.index()]
+            return self.ceav[year][self.ind()]
 
 
     def cuota_cesantia_vejez(self):

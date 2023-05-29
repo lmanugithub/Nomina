@@ -139,8 +139,15 @@ class CalculoIMSSPatron(DataImss, WorkingTime, Tablas_Imss):
         lista = [1.01, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.01, 35]
         elements = [i for i in lista if i <= self.veces_uma()]
         # indice = lista.index(elements[-1])
-        indice = len(elements)-1
-        return indice
+        # se ajusta ya que es un rango entre los valores de la "lista"
+        # pero siempre se considerará el indice será el mayor del rango ()
+        # el 8 es el valor maximo a obtener...
+        if len(elements) >= 8:
+            indice = len(elements)-1
+            return indice
+        else:
+            indice = len(elements)
+            return indice
 
     def method_ceav(self):
         if self.get_year() < 2030:

@@ -136,7 +136,7 @@ class CalculoIMSSPatron(DataImss, WorkingTime, Tablas_Imss):
         return year
 
     def ind(self) -> int:
-        lista = [1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 35.00]
+        lista = [1.01, 1.51, 2.01, 2.51, 3.01, 3.51, 4.01, 35.00]
         # lista = [1.01, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.01, 35]
         elements = [i for i in lista if i <= self.veces_uma()]
         # indice = lista.index(elements[-1])

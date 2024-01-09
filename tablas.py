@@ -15,22 +15,22 @@ class Tablas:
             float, float, float, float, float, float,
             float, float, float, float, float, float
         ]
-        # tarifas 2023
+        # tarifas 2024
         self.limite_inferior: Tablas = (
             0.01, 746.05, 6332.06, 11128.02, 12935.83, 15487.72,
             31236.50, 49233.01, 93993.91, 125325.21, 375975.62
         )
-        # tarifas 2023
+        # tarifas 2024
         self.limite_superior: Tablas = (
             746.04, 6332.05, 11128.01, 12935.82, 15487.71, 31236.49, 
             49233.00, 93993.90, 125325.20, 375975.61, 2000000000.00
         )
-        # tarifas 2023
+        # tarifas 2024
         self.cuota_fija: Tablas = (
             0.00, 14.32, 371.83, 893.63, 1182.88, 1640.18, 5004.12,
             9236.89, 22665.17, 32691.18, 117912.32
         )
-        # tarifas 2023
+        # tarifas 2024
         self.por_excedente_limite_inferior: Tablas = (
             0.0192, 0.0640, 0.1088, 0.1600, 0.1792, 0.2136, 0.2352,
             0.3000, 0.3200, 0.3400, 0.3500

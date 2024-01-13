@@ -48,17 +48,17 @@ class Aumento(SBC):
         if self.importe > 150000:
             fondo = self.importe * self.incremento_juan / 2
             limite = (self._uma * 365 * 1.30) / 12
-            if fondo < limite:
-                return fondo
+            if fondo > limite:
+                return (fondo - limite) * 2
             else:
-                return limite
+                return 0
         else:
             fondo = self.importe * self.incremento_general / 2
             limite = (self._uma * 365 * 1.30) / 12
-            if fondo < limite:
-                return fondo
+            if fondo > limite:
+                return (fondo - limite) * 2
             else:
-                return limite
+                return 0
     
     @classmethod
     def funcion_excedente(cls, importe) -> float:
@@ -66,7 +66,7 @@ class Aumento(SBC):
         fondo.set_importe(importe)
         return fondo.excedente_fondo()
     
-    def vales(self, importe) -> int:
+    def vales(self) -> int:
         if (self.importe * 0.05) > 1500:
             return int(1500)
         else:
@@ -77,5 +77,11 @@ class Aumento(SBC):
         vales = Aumento()
         vales.set_importe(importe)
         return vales.vales()
+
+if __name__ == '__main__':
+    prueba = Aumento()
+    prueba.set_importe(15000)
+    print(prueba.fondo_trabajador())
+    print(prueba.excedente_fondo())
 
 

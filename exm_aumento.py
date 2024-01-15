@@ -21,17 +21,20 @@ class Aumento(SBC):
     def set_importe(self, importe: float) -> float:
         self.importe = importe
 
+    def limite(self) -> float:
+        return (self._uma * 365 * 1.30) / 12
+
     def fondo_trabajador(self) -> float:
         if self.importe > 150000:
             fondo = self.importe * self.incremento_juan / 2
-            limite = (self._uma * 365 * 1.30) / 12
+            limite = self.limite()
             if fondo < limite:
                 return fondo
             else:
                 return limite
         else:
             fondo = self.importe * self.incremento_general / 2
-            limite = (self._uma * 365 * 1.30) / 12
+            limite = self.limite()
             if fondo < limite:
                 return fondo
             else:
@@ -47,14 +50,14 @@ class Aumento(SBC):
     def excedente_fondo(self) -> float:
         if self.importe > 150000:
             fondo = self.importe * self.incremento_juan / 2
-            limite = (self._uma * 365 * 1.30) / 12
+            limite = self.limite()
             if fondo > limite:
                 return (fondo - limite) * 2
             else:
                 return 0
         else:
             fondo = self.importe * self.incremento_general / 2
-            limite = (self._uma * 365 * 1.30) / 12
+            limite = self.limite()
             if fondo > limite:
                 return (fondo - limite) * 2
             else:

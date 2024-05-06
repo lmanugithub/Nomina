@@ -40,20 +40,34 @@ class ISR(Tablas):
 
         return impuesto
 
-    def index_cuota_subsidio(self) -> int:
-        i = 0
-        while self.superior_subsidio[i] <= self._sueldo_base:
-            i += 1
-        return i
+    # def index_cuota_subsidio(self) -> int:
+    #     i = 0
+    #     while self.superior_subsidio[i] <= self._sueldo_base:
+    #         i += 1
+    #     return i
 
-    def subsidio(self):
-        return (self.cuota_subsidio[self.index_cuota_subsidio()] * 1)
+    def subsidio(self) -> float:
+        # return (self.cuota_subsidio[self.index_cuota_subsidio()] * 1)
+        if self._sueldo_base <= self.ingresos_mensuales_gravados:
+            return self.spe_mensual
+        else:
+            return 0
+        
 
     def impuesto_a_retener(self) -> float:
-        impuesto_retener = -1 * \
-            (self.cuota_subsidio[self.index_cuota_subsidio()]
-             ) + self.calculo_impuesto()
-        return round(impuesto_retener, 2)
+        # impuesto_retener = -1 * \
+        #     (self.cuota_subsidio[self.index_cuota_subsidio()]
+        #      ) + self.calculo_impuesto()
+
+        resta = self.calculo_impuesto() - self.subsidio()
+        if self.subsidio() > 0:
+            if resta > 0:
+                return round(resta,2)
+            else:
+                return 0
+        else:
+            return round(self.calculo_impuesto(),2)
+
 
     @classmethod
     def function_isr(cls, x: float) -> float:

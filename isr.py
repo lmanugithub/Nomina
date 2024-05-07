@@ -147,9 +147,24 @@ class ISR_Anual(Tablas_Anual,DataImss):
         return calculo.calculo_impuesto_anual()
 
 if __name__=='__main__':
-    sueldo = float(input('Hola por favor digite la base del impuesto: '))
-    calculo = ISR()
-    calculo.set_sueldo_base(sueldo)
+    # sueldo = float(input('Hola por favor digite la base del impuesto: '))
+    # calculo = ISR()
+    # calculo.set_sueldo_base(sueldo)
 
-    print(calculo.impuesto_a_retener())
+    # print(calculo.impuesto_a_retener())
 
+    data = {
+        'trabajador_01':7567.47,
+        'trabajador_02':8191.79,
+        'trabajador_03':9081.00,
+        'trabajador_04':9081.30
+            }
+    new_dict = {}
+    for clave, valor in data.items():
+        calculo = ISR()
+        calculo.set_sueldo_base(valor)
+        lista = list((calculo.get_sueldo_base(),round(calculo.calculo_impuesto(),2),calculo.subsidio(),calculo.impuesto_a_retener()))
+        new_dict[clave] = lista
+    
+    for key, value in new_dict.items():
+        print(f'{key} => {value}', end='\n')

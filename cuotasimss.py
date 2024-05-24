@@ -16,142 +16,158 @@ class CuotasImss(CalculoIMSSObrero, CalculoIMSSPatron):
 
     # Cuota fija
     @classmethod
-    def function_cuota_fija_patronal(cls, x):
+    def mensual_cuota_fija_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.cuotas_pres_especie_enf_mat_cuot()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.cuotas_pres_especie_enf_mat_cuot() / cuota.dias * days
 
-    # Excedente
+    # Excedente patronal
     @classmethod
-    def function_excedente_patronal(cls, x):
+    def mensual_excedente_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.cuotas_pres_especie_enf_mat()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.cuotas_pres_especie_enf_mat() / cuota.dias * days
 
     @classmethod
-    def function_excedente_obrero(cls, x):
+    def mensual_excedente_obrero(cls, sbc, days):
         cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        return cuota.cuotas_pres_especie_enf_mat()
+        cuota.set_sdi(sbc)
+        return cuota.cuotas_pres_especie_enf_mat() / cuota.dias * days
 
     # Prestaciones en dinero
     @classmethod
-    def function_prestaciones_patronal(cls, x):
+    def mensual_prestaciones_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.cuotas_pres_dinero_enf_mat()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.cuotas_pres_dinero_enf_mat() / cuota.dias * days
 
     @classmethod
-    def function_prestaciones_obrero(cls, x):
+    def mensual_prestaciones_obrero(cls, sbc, days):
         cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        return cuota.cuotas_pres_dinero_enf_mat()
+        cuota.set_sdi(sbc)
+        return cuota.cuotas_pres_dinero_enf_mat() / cuota.dias * days
 
     # Gastos medicos pensionados
     @classmethod
-    def function_gastos_medicos_patronal(cls, x):
+    def mensual_gastos_medicos_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.gastos_medicos_pencionados()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.gastos_medicos_pencionados() / cuota.dias * days
 
     @classmethod
-    def function_gastos_medicos_obrero(cls, x):
+    def mensual_gastos_medicos_obrero(cls, sbc, days):
         cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        return cuota.gastos_medicos_pencionados()
+        cuota.set_sdi(sbc)
+        return cuota.gastos_medicos_pencionados() / cuota.dias * days
 
     # Riesgo de trabajo
     @classmethod
-    def function_riesgo_trabajo(cls, x):
+    def mensual_riesgo_trabajo(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.riesgo_de_trabajo()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.riesgo_de_trabajo() / cuota.dias * days
 
     # Invalidez y vida
     @classmethod
-    def function_invalidez_patronal(cls, x):
+    def mensual_invalidez_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.cuota_invalidez()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.cuota_invalidez() / cuota.dias * days
 
     @classmethod
-    def function_invalidez_obrero(cls, x):
+    def mensual_invalidez_obrero(cls, sbc, days):
         cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        return cuota.cuota_invalidez()
+        cuota.set_sdi(sbc)
+        return cuota.cuota_invalidez() / cuota.dias * days
 
     # Guarderias y prestaciones sociales
     @classmethod
-    def function_guarderia_patronal(cls, x):
+    def mensual_guarderia_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.guarderia()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.guarderia() / cuota.dias * days
 
-    # Sutotal seguros imss
-    @classmethod
-    def function_subtotal_imss_patronal(cls, x):
-        cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        subtotal = (
-            cuota.cuotas_pres_especie_enf_mat_cuot() +
-            cuota.cuotas_pres_especie_enf_mat() +
-            cuota.cuotas_pres_dinero_enf_mat() +
-            cuota.gastos_medicos_pencionados() +
-            cuota.riesgo_de_trabajo() +
-            cuota.cuota_invalidez() +
-            cuota.guarderia()
-        )
-        return subtotal
+    # # Sutotal seguros imss mensual
+    # @classmethod
+    # def function_subtotal_imss_patronal(cls, x):
+    #     cuota = CalculoIMSSPatron()
+    #     cuota.set_sdi(x)
+    #     subtotal = (
+    #         cuota.cuotas_pres_especie_enf_mat_cuot() +
+    #         cuota.cuotas_pres_especie_enf_mat() +
+    #         cuota.cuotas_pres_dinero_enf_mat() +
+    #         cuota.gastos_medicos_pencionados() +
+    #         cuota.riesgo_de_trabajo() +
+    #         cuota.cuota_invalidez() +
+    #         cuota.guarderia()
+    #     )
+    #     return subtotal
 
-    @classmethod
-    def function_subtotal_imss_obrero(cls, x):
-        cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        subtotal = (
-            cuota.cuotas_pres_especie_enf_mat() +
-            cuota.cuotas_pres_dinero_enf_mat() +
-            cuota.gastos_medicos_pencionados() +
-            cuota.cuota_invalidez()
-        )
-        return subtotal
+    # @classmethod
+    # def function_subtotal_imss_obrero(cls, x):
+    #     cuota = CalculoIMSSObrero()
+    #     cuota.set_sdi(x)
+    #     subtotal = (
+    #         cuota.cuotas_pres_especie_enf_mat() +
+    #         cuota.cuotas_pres_dinero_enf_mat() +
+    #         cuota.gastos_medicos_pencionados() +
+    #         cuota.cuota_invalidez()
+    #     )
+    #     return subtotal
 
     # Retiro, Cesantia en edad avanzada y vejez
     # Retiro
     @classmethod
-    def function_retiro_patronal(cls,x):
+    def bimestral_retiro_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.retiro()
+        cuota.set_fecha_base(base_date)
+        cuota.set_sdi(sbc)
+        return cuota.retiro() / cuota.dias * days
     
     # Cesantia en edad avanzada y vejez
     @classmethod
-    def function_ceav_patronal(cls,x):
+    def bimestral_ceav_patronal(cls, sbc, base_bate, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        return cuota.cuota_cesantia_vejez()
+        cuota.set_fecha_base(base_bate)
+        cuota.set_sdi(sbc)
+        return cuota.cuota_cesantia_vejez() / cuota.dias * days
 
     @classmethod
-    def function_ceav_obrero(cls,x):
+    def bimestral_ceav_obrero(cls, sbc, days):
         cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        return cuota.cuota_cesantia_vejez()
+        cuota.set_sdi(sbc)
+        return cuota.cuota_cesantia_vejez() / cuota.dias * days
 
-    @classmethod
-    def function_rcv_patronal(cls,x):
-        cuota = CalculoIMSSPatron()
-        cuota.set_sdi(x)
-        subtotal = (
-            cuota.retiro() +
-            cuota.cuota_cesantia_vejez()
-        )
-        return subtotal
+    # @classmethod
+    # def function_rcv_patronal(cls,x):
+    #     cuota = CalculoIMSSPatron()
+    #     cuota.set_sdi(x)
+    #     subtotal = (
+    #         cuota.retiro() +
+    #         cuota.cuota_cesantia_vejez()
+    #     )
+    #     return subtotal
 
+    # @classmethod
+    # def function_rcv_obrero(cls,x):
+    #     cuota = CalculoIMSSObrero()
+    #     cuota.set_sdi(x)
+    #     subtotal = (
+    #         cuota.cuota_cesantia_vejez()
+    #     )
+    #     return subtotal
+    
     @classmethod
-    def function_rcv_obrero(cls,x):
-        cuota = CalculoIMSSObrero()
-        cuota.set_sdi(x)
-        subtotal = (
-            cuota.cuota_cesantia_vejez()
-        )
-        return subtotal
+    def bimestral_aportaciones_infonavit(cls, sbc, base_bate, days):
+        calculo = CalculoIMSSPatron()
+        calculo.set_fecha_base(base_bate)
+        calculo.set_sdi(sbc)
+        return calculo.infonavit() / calculo.dias * days
 

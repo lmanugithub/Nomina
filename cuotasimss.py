@@ -133,9 +133,9 @@ class CuotasImss(CalculoIMSSObrero, CalculoIMSSPatron):
     
     # Cesantia en edad avanzada y vejez
     @classmethod
-    def bimestral_ceav_patronal(cls, sbc, base_bate, days):
+    def bimestral_ceav_patronal(cls, sbc, base_date, days):
         cuota = CalculoIMSSPatron()
-        cuota.set_fecha_base(base_bate)
+        cuota.set_fecha_base(base_date)
         cuota.set_sdi(sbc)
         return cuota.cuota_cesantia_vejez() / cuota.dias * days
 
@@ -165,9 +165,9 @@ class CuotasImss(CalculoIMSSObrero, CalculoIMSSPatron):
     #     return subtotal
     
     @classmethod
-    def bimestral_aportaciones_infonavit(cls, sbc, base_bate, days):
+    def bimestral_aportaciones_infonavit(cls, sbc, base_date, days):
         calculo = CalculoIMSSPatron()
-        calculo.set_fecha_base(base_bate)
+        calculo.set_fecha_base(base_date)
         calculo.set_sdi(sbc)
         return calculo.infonavit() / calculo.dias * days
 

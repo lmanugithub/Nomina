@@ -76,10 +76,10 @@ class SBC(Vacaciones, DatosTrabajador):
             return self._uma * 25
 
     @classmethod
-    def funcion_sbc(cls, sueldo, vales, a, b):
+    def funcion_sbc(cls, sueldo, vales, admission_date, base_date):
         nomina = SBC()
-        nomina.set_fecha_ingreso(a)
-        nomina.set_fecha_base(b)
+        nomina.set_fecha_ingreso(admission_date)
+        nomina.set_fecha_base(base_date)
         nomina.set_sueldo_mensual(sueldo)
         nomina.set_vales_despensa(vales)
         return nomina.salario_base_cotizacion()
@@ -97,10 +97,10 @@ class SBC(Vacaciones, DatosTrabajador):
         return round((sd * self.proporcion_aguinaldo()), 2)
 
     @classmethod
-    def funcion_aguinaldo(cls, sueldo, a, b):
+    def funcion_aguinaldo(cls, sueldo, admission_date, base_date):
         nomina = SBC()
-        nomina.set_fecha_ingreso(a)
-        nomina.set_fecha_base(b)
+        nomina.set_fecha_ingreso(admission_date)
+        nomina.set_fecha_base(base_date)
         nomina.set_sueldo_mensual(sueldo)
         return nomina.aguinaldo()
 
@@ -109,10 +109,10 @@ class SBC(Vacaciones, DatosTrabajador):
         return round((sd * self.vacaciones_dias_r() * 0.25), 2)
 
     @classmethod
-    def funcion_pv(cls, sueldo, date_ingreso, date_base):
+    def funcion_pv(cls, sueldo, admission_date, base_date):
         nomina = SBC()
-        nomina.set_fecha_ingreso(date_ingreso)
-        nomina.set_fecha_base(date_base)
+        nomina.set_fecha_ingreso(admission_date)
+        nomina.set_fecha_base(base_date)
         nomina.set_sueldo_mensual(sueldo)
         return nomina.prima_vac()
 
@@ -121,18 +121,18 @@ class SBC(Vacaciones, DatosTrabajador):
         return self.aguinaldo_sbc() + self.prima_vac_sbc() + sd
 
     @classmethod
-    def funcion_sdi(cls, sueldo, a, b):
+    def funcion_sdi(cls, sueldo, admission_date, base_date):
         nomina = SBC()
         nomina.set_sueldo_mensual(sueldo)
-        nomina.set_fecha_ingreso(a)
-        nomina.set_fecha_base(b)
+        nomina.set_fecha_ingreso(admission_date)
+        nomina.set_fecha_base(base_date)
         return nomina.sdi()
 
     # Funcion vacaciones
     @classmethod
-    def funcion_dias_vacaciones(cls, date_ingreso, date_base):
+    def funcion_dias_vacaciones(cls, admission_date, base_date):
         nomina = SBC()
-        nomina.set_fecha_ingreso(date_ingreso)
-        nomina.set_fecha_base(date_base)
+        nomina.set_fecha_ingreso(admission_date)
+        nomina.set_fecha_base(base_date)
         return nomina.vacaciones_dias_r()
 

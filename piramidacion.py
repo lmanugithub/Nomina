@@ -1,3 +1,9 @@
+# coding: utf-8
+
+# In[1]:
+
+__author__ = 'lmanuel.links@gmail.com'
+
 import pandas as pd
 from imss import CalculoIMSSObrero, CalculoIMSSPatron
 from isr import ISR

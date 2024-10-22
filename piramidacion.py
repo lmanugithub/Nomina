@@ -63,7 +63,7 @@ class Piramidacion(CalculoIMSSObrero,ISR,SBC):
         if with_vouchers:
             net_salary = [sueldo - isr - imss + vale for sueldo, vale, isr, imss in zip(sueldos, vouchers, isrs, imss_obs)]
         else:
-            net_salary = [sueldo - isr - imss  for sueldo, isr, imss in zip(sueldos, vouchers, isrs, imss_obs)]
+            net_salary = [sueldo - isr - imss  for sueldo, isr, imss in zip(sueldos, isrs, imss_obs)]
 
         
         data_frame = {'Sueldo':sueldos,'Vales':vouchers,'SBC':sbcs,'ISR':isrs,'IMSS':imss_obs,'Neto':net_salary}
@@ -73,7 +73,7 @@ class Piramidacion(CalculoIMSSObrero,ISR,SBC):
     def df_ta(self, buscar_valor:float, with_vouchers=0):
         sueldo_inicial = self.approach_gross_salary(buscar_valor, with_vouchers) - 5
         df = self.df_iteraciones(1000, 0.01, sueldo_inicial, with_vouchers)
-        margen = 0.01  # Ajuste de margen para mayor precisión
+        margen = 0.03  # Ajuste de margen para mayor precisión
         df = df[(df['Neto'] >= (buscar_valor - margen)) & (df['Neto'] <= (buscar_valor + margen))]
         self.df_approach = df.copy()
 
@@ -82,14 +82,21 @@ class Piramidacion(CalculoIMSSObrero,ISR,SBC):
     
 
 
-if __name__=='__main__':
-    valor_a_buscar = 13000
-    approach = Piramidacion()
-    print(approach.approach_gross_salary(valor_a_buscar,1))
-    approach.df_ta(valor_a_buscar, 1)
-    print(approach.putout_ta())
-    
-
-
-
-
+if __name__ == '__main__':
+    print('\t\nBusqueda del sueldo bruto en base al neto \n')
+    valor_a_buscar = float(input(f'Digite el importe de salario neto para aproximar: '))
+    tipo_calculo = (input('El sueldo neto incluye vales de despensa [y/n]: ').lower())
+    if tipo_calculo == 'y':
+        approach = Piramidacion()
+        print('\n Valor aproximado:')
+        print(approach.approach_gross_salary(valor_a_buscar,1))
+        approach.df_ta(valor_a_buscar, 1)
+        print('\t Tabla de valores:')
+        print(approach.putout_ta())
+    else:
+        approach = Piramidacion()
+        print('\n Valor aproximado:')
+        print(approach.approach_gross_salary(valor_a_buscar,0))
+        approach.df_ta(valor_a_buscar, 0)
+        print('\t Tabla de valores:')
+        print(approach.putout_ta())

@@ -10,6 +10,8 @@ class Piramidacion(CalculoIMSSObrero,ISR,SBC):
         self.fecha_inicio_tranajador = pd.to_datetime('2024-10-15', format='%Y-%m-%d')
         self.fecha_fin_ejercicio = pd.to_datetime('2024/12/31')
         self.with_vouchers = 0
+        self.gross_salary = 0
+        self.goal = 0
 
 
     # getter method

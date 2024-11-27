@@ -83,18 +83,19 @@ class Piramidacion(CalculoIMSSObrero,ISR,SBC):
 
 
 if __name__ == '__main__':
+    approach = Piramidacion()
     print('\t\nBusqueda del sueldo bruto en base al neto \n')
     valor_a_buscar = float(input(f'Digite el importe de salario neto para aproximar: '))
+    fecha = input('La fecha de trabajador (YYYY-mm-dd): ')
+    approach.fecha_inicio_tranajador = pd.to_datetime(fecha, format='%Y-%m-%d')
     tipo_calculo = (input('El sueldo neto incluye vales de despensa [y/n]: ').lower())
     if tipo_calculo == 'y':
-        approach = Piramidacion()
         print('\n Valor aproximado:')
         print(approach.approach_gross_salary(valor_a_buscar,1))
         approach.df_ta(valor_a_buscar, 1)
         print('\t Tabla de valores:')
         print(approach.putout_ta())
     else:
-        approach = Piramidacion()
         print('\n Valor aproximado:')
         print(approach.approach_gross_salary(valor_a_buscar,0))
         approach.df_ta(valor_a_buscar, 0)

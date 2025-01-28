@@ -46,8 +46,8 @@ class Tablas:
             294.63, 253.54, 217.61, 0.00
         )
         # tarifas mayo 2024
-        self.ingresos_mensuales_gravados = 9081.00
-        self.spe_mensual = 390.12
+        self.ingresos_mensuales_gravados = 10171.00  #9081.00
+        self.spe_mensual = 475.00 #390.12
 
 
 class Tablas_Anual:

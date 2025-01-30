@@ -5,7 +5,7 @@
 __author__ = 'lguerrero'
 
 class DataImss():
-    _uma = 108.57 # febrero 2023 103.74 - febrero 2022 - 96.22 ; febrero 2021 - 89.62
+    _uma = 113.14 # febrero 2024 108.57 febrero 2023 103.74 - febrero 2022 - 96.22 ; febrero 2021 - 89.62
     dias = 30.4
     _prima_de_riesgo = 0.50000 # 0.54355
 
